@@ -1,0 +1,25 @@
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.cards__btn{
+    display: block;
+    margin: 0 auto;
+    border: blueviolet 1px solid;
+    background-color: #fff;
+    cursor: pointer;
+    width: 180px;
+    height: 35px;
+    border-radius: 15px;
+    font-size: 16px;
+    color: blueviolet;
+    margin-bottom: 15px;
+}
+.cards__btn:hover{
+    background-color: blueviolet;
+    color: #fff;
+}
+.cards__btn:focus{
+    outline: none;
+}

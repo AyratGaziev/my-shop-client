@@ -1,18 +1,20 @@
 import './App.css';
 import React from 'react'
-import Card from './components/Card/Card';
 import Header from './components/Header/Header';
 import {BrowserRouter as Router} from 'react-router-dom'
+import AllCards from './components/AllCards/AllCards';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <Router>
         <Header />
         <div className="content">
-          <Card/>
+          <AllCards/>
         </div>      
-      </Router>      
+      </Router>
+      <Footer/>
     </div>
   )
 }

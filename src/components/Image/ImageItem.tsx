@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './ImageItem.css'
 
-const ImageItem = ({ fullUrl, placeholderHeight }) => {
+type ImageItemType = {
+    fullUrl: string,
+    placeholderWidth?: string
+}
+
+const ImageItem: React.FC<ImageItemType> = ({ fullUrl, placeholderWidth }) => {
 
   const [imgStatus, setImgStatus] = useState(false)
 
@@ -16,12 +21,12 @@ const ImageItem = ({ fullUrl, placeholderHeight }) => {
     }, [fullUrl])
 
     const placeholderStyle = {
-        height: `${placeholderHeight}px`
+        height: `${placeholderWidth}px`
     }
 
     const showImg = (
         imgStatus
-            ? <img className = "image" src={`${fullUrl}`} alt='item' />
+            ? <img className = "image" style={placeholderStyle} src={`${fullUrl}`} alt='item' />
             : <div
                 style={placeholderStyle}
                 className="placeholder"></div>
