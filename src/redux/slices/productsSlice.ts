@@ -1,48 +1,93 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { ProductsListType } from '../../types'
+import { ProductsListType, SomeProductsType } from '../../types'
 import url from '../../url'
 
-type SomeProductRequsetType = {
-    start: number,
+type ProductRequsetType = {
+    start: number
     limit: number
+    category: string
 }
 
-const initialState: ProductsListType = []
+type ProductsState = {
+    allProducts: SomeProductsType
+    notebooks: SomeProductsType
+    phones: SomeProductsType
+    tvs: SomeProductsType    
+    loading: boolean
+}
 
-export const getAllProducts = createAsyncThunk(
-    'products/GetAll',
-    async () => {
-        const response = await axios.get(`${url}products`)
-        console.log(response);        
-        return (response.data) as ProductsListType
-    } 
-)
+type category = 'allProducts' | 'notebooks' | 'phones' | 'tvs'
 
-export const getSomeProducts = createAsyncThunk<ProductsListType, SomeProductRequsetType>(
+type ProdResonseType = {
+    products: ProductsListType
+    done: boolean,
+    category: category
+}
+
+const initialState = {
+    allProducts: {
+        loadingStatus: 'idle',
+        products: [],
+        start: 0
+    },
+    notebooks: {
+        loadingStatus: 'idle',
+        products: [],
+        start: 0
+    },
+    phones: {
+        loadingStatus: 'idle',
+        products: [],
+        start: 0
+    },
+    tvs: {
+        loadingStatus: 'idle',
+        products: [],
+        start: 0
+    },
+    loading: false
+} as ProductsState
+    
+
+export const getSomeProducts = createAsyncThunk(
     'products/GetSome',
-    async ({ limit, start }) => {
-        const response = await axios.get(`${url}products/some/limit/${limit}/start/${start}`)            
-        return( response.data) as ProductsListType
+    async (params: ProductRequsetType) => {
+        const response = await axios.get(`${url}products/some/limit/${params.limit}/start/${params.start}/category/${params.category}`)            
+        return( response.data) as ProdResonseType
     }
 )
-
 
 const productsSlice = createSlice({
     name: "products",
     initialState,
-    reducers: {},
+    reducers: {
+        setStart: (state, action: PayloadAction<category>) => {
+            console.log('payload ' + action.payload);
+            
+            state[action.payload].start = state[action.payload].products.length
+        }
+    },
     extraReducers: builder => {
-        builder.addCase(getAllProducts.fulfilled, (state, action: PayloadAction<ProductsListType>) => {
-            return action.payload
+
+        //GET some products, skip some limited response
+        builder.addCase(getSomeProducts.pending, (state: ProductsState) => {
+            state.loading = true          
         })
-        builder.addCase(getAllProducts.rejected, (state, action) => {
-            console.log(action.payload);            
-        })
-        builder.addCase(getSomeProducts.fulfilled, (state, action: PayloadAction<ProductsListType>) => {
-            return state.concat(action.payload)
+        builder.addCase(getSomeProducts.fulfilled, (state: ProductsState, action: PayloadAction<ProdResonseType>) => {
+            if (action.payload.done) {
+                state[action.payload.category].loadingStatus = 'done'
+                state[action.payload.category].products = [...state[action.payload.category].products, ...action.payload.products] 
+                state.loading = false  
+            } else {
+                state[action.payload.category].loadingStatus = 'succeeded'
+                state[action.payload.category].products = [...state[action.payload.category].products, ...action.payload.products]
+                state.loading = false 
+            }
         })
     }
 })
+
+export const {setStart} = productsSlice.actions
 
 export default productsSlice.reducer

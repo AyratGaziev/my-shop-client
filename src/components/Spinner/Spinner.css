@@ -1,4 +1,9 @@
 
+.spinner{
+  margin: 0 auto;
+  transform: scale(0.5);
+}
+
 @keyframes ldio-e037vvn9ebd {
   0% { transform: scale(1.1500000000000001) }
   100% { transform: scale(1) }

@@ -10,3 +10,8 @@ export type ProductDataType = {
   img: string
 }
 export type ProductsListType = ProductDataType[]
+export type SomeProductsType = {
+    loadingStatus: 'idle' | 'pending' | 'succeeded' | 'failed' | 'done',
+    products: ProductsListType
+    start: number
+}

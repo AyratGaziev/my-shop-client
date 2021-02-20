@@ -1,39 +1,50 @@
-import React, {useEffect, useState} from 'react';
-import './AllCards.css'
-import Card from '../Card/Card';
-import {ProductsListType} from '../../types'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { getSomeProducts, setStart } from '../../redux/slices/productsSlice';
 import { RootState } from '../../redux/store/store';
-import { getSomeProducts } from '../../redux/slices/productsSlice';
+import { ProductsListType } from '../../types';
+import Card from '../Card/Card';
 import Spinner from '../Spinner/Spinner';
+import './AllCards.css'
 
-const AllCards: React.FC = () => {
-  
-  const products = useSelector((state: RootState): ProductsListType => state.products)
-  const dispatch = useDispatch()
-  const [start, setStart] = useState<number>(0)
-  console.log(start);
-  
+type AllCardsPropsType = { 
+    category: 'allProducts' | 'notebooks' | 'phones' | 'tvs'
+}
 
-  useEffect(() => {    
-    dispatch(getSomeProducts({limit: 8, start: start})) 
-  }, [start, dispatch])
+const AllCards: React.FC<AllCardsPropsType> = ({category}) => {
 
-  const cardList = products.map(product => <Card key={product._id} product={product} />)
-  
+    const products = useSelector((state: RootState): ProductsListType => state.products[category].products)
+    const status = useSelector((state: RootState): string => state.products[category].loadingStatus)
+    const loading = useSelector((state: RootState): boolean => state.products.loading)
+    const start = useSelector((state: RootState): number => state.products[category].start)
+    
+    const dispatch = useDispatch()
+    
+    const limit = 4
 
-  return (
+    useEffect(() => {         
+        if (products.length === 0 || (status !== 'done'&& start === products.length)) {
+            dispatch(getSomeProducts({limit, start, category})) 
+        }
+    }, [start, products.length])
+
+
+    const cardList = products.map(product => <Card key={product._id} product={product} />)
+
+    return (
     <>
-      <div className="cards">
-          {cardList.length !== 0 ? cardList : <Spinner/>}      
-      </div>
-      {cardList.length !== 0
-        ? <button
-          className="cards__btn"
-          onClick={() => setStart(prevCount => prevCount + 8)}>Показать еще</button>
-        : null}
+        <div className="cards">
+            {cardList}
+            {loading === true ? <Spinner/> : null}      
+        </div>
+        {(status !== 'done' && loading === false)
+            ? <button
+                className="cards__btn"
+                onClick={() => dispatch(setStart(category))}>Показать еще</button>
+            : null
+        }
     </>      
-  );
+    );
 }
 
 export default AllCards;
