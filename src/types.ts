@@ -8,6 +8,33 @@ export type ProductDataType = {
   features: {_id: string, name:string, descrition:string}[]
   img: string
 }
+export type ProductReviewsType = {
+   _id: string,
+  name: string,
+  prodId: string,
+  advantages: string,
+  limitations: string,
+  comments: string  
+}[]
+export type OneReviewResponseType = {
+   _id: string,
+  name: string,
+  prodId: string,
+  advantages: string,
+  limitations: string,
+  comments: string  
+}
+export type OneReviewRequsetType = {
+  name: string,
+  prodId: string,
+  advantages: string,
+  limitations: string, 
+  comments: string  
+}
+export type ProductWithReviewsType = {
+  product: ProductDataType, 
+  reviews: ProductReviewsType
+}
 export type ProductsListType = ProductDataType[]
 export type SomeProductsType = {
   loadingStatus: 'idle' | 'pending' | 'succeeded' | 'failed' | 'done',
@@ -46,7 +73,7 @@ export type ProductsState = {
     search: SomeProductsType  
     loading: boolean
     cart: CartType
-    productOverview: ProductDataType
+    productOverview: ProductWithReviewsType
 }
 
 

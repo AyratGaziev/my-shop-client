@@ -1,0 +1,31 @@
+.review{
+    width: 650px;
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: justify;
+    line-height: 1.5;
+}
+.review__name{
+    font-weight: 700;
+}
+.review__header{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.review__name-wrapper{
+    display: flex;
+    align-items: center;
+}
+.review__avatar{
+    width: 40px;
+    height: 40px;
+}
+.review__title{
+    margin-bottom: 30px;
+}
+.review__item{
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid blueviolet;
+}

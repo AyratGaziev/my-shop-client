@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './SearchBar.css'
-import Cart from './cart.png'
+import {ReactComponent as CartImg} from './cart.svg'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { setNewSearch } from '../../redux/slices/productsSlice';
@@ -33,7 +33,8 @@ const SearchBar: React.FC = () => {
                               
             </form>
             <Link className = 'search__cart-link' to ='/cart'>
-                <img className='search__cart-link-img' src={Cart} alt="cart"/>
+                {/* <img className='search__cart-link-img' src={Cart} alt="cart" /> */}
+                <CartImg className='search__cart-link-img' />
             </Link>
         </div>
     );

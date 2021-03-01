@@ -8,8 +8,11 @@ import {
     ProductsState,
     ProdResonseType,
     ProductRequsetByIdType,
-    ProductDataType} from '../../types'
+    ProductWithReviewsType,
+    OneReviewRequsetType,
+    OneReviewResponseType} from '../../types'
 import url from '../../url'
+import { RootState } from '../store/store'
 
 
 
@@ -41,20 +44,23 @@ const initialState = {
     },
     loading: false,
     productOverview: {
-        _id: '',
-        category: '',
-        description: '',
-        discount: 0,
-        features: [
-            {
-                _id: '',
-                descrition: '',
-                name: ''
-            }
-        ],
-        img: '',
-        name: '',
-        price: 0
+        product: {
+            _id: '',
+            category: '',
+            description: '',
+            discount: 0,
+            features: [
+                {
+                    _id: '',
+                    descrition: '',
+                    name: ''
+                }
+            ],
+            img: '',
+            name: '',
+            price: 0
+        },
+        reviews: []
     },
     cart: []
 } as ProductsState
@@ -79,7 +85,26 @@ export const getOneProductByID = createAsyncThunk(
     'products/getOneProductByID',
     async (params: ProductRequsetByIdType) => {        
         const response = await axios.get(`${url}products/prodId/${params.id}`)            
-        return( response.data) as ProductDataType 
+        return( response.data) as ProductWithReviewsType 
+    }
+)
+
+export const addNewReview = createAsyncThunk(
+    'products/addNewReview',
+    async (newReview: OneReviewRequsetType) => {
+        const {
+            advantages,
+            comments,
+            limitations,
+            name,
+            prodId } = newReview
+        const response = await axios.post(`${url}reviews/add`, {
+            advantages,
+            comments,
+            limitations,
+            name,
+            prodId })
+        return (response.data) as OneReviewResponseType
     }
 )
 
@@ -149,8 +174,22 @@ const productsSlice = createSlice({
         )
         builder.addCase(
             getOneProductByID.fulfilled,
-            (state: ProductsState, action: PayloadAction<ProductDataType>) => {
+            (state: ProductsState, action: PayloadAction<ProductWithReviewsType>) => {
                 state.productOverview = action.payload
+                state.loading = false
+            }
+        )
+        //POST Reviews
+        builder.addCase(
+            addNewReview.pending,
+            (state: ProductsState) => {
+                state.loading = true
+            }
+        )
+        builder.addCase(
+            addNewReview.fulfilled,
+            (state: ProductsState, action: PayloadAction<OneReviewResponseType>) => {
+                state.productOverview.reviews.push(action.payload)
                 state.loading = false
             }
         )

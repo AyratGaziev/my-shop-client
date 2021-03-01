@@ -8,6 +8,8 @@ import url from '../../url';
 import Price from '../Price/Price';
 import { addToCart, getOneProductByID } from '../../redux/slices/productsSlice';
 import Spinner from '../Spinner/Spinner';
+import Reviews from '../Reviews/Reviews';
+import AddReviews from '../AddReviews/AddReviews';
 
 type PordParamsType = { id: string }
 
@@ -37,7 +39,9 @@ const ProductOverview: React.FC<RouteComponentProps<PordParamsType>> = ({ match 
     const decreaseProdCount = () => setProductCount(productCount = productCount === 1 ? 1 : productCount-1)
     
     // const product = products.find(prod => prod._id === id)
-    const product = useSelector((state:RootState)=>state.products.productOverview)
+    const product = useSelector((state: RootState) => state.products.productOverview.product)
+    const reviews = useSelector((state: RootState) => state.products.productOverview.reviews)
+
 
     if (product._id !== '' && id === product._id) {
         const {
@@ -117,6 +121,8 @@ const ProductOverview: React.FC<RouteComponentProps<PordParamsType>> = ({ match 
                     </div>
                 </div>    
                 <div className="product__descr">{description}</div>
+                <AddReviews pordId={_id}/>
+                <Reviews reviews={reviews}/>
             </div>
         );
     } else if (loading) {

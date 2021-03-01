@@ -85,8 +85,7 @@ const Cart: React.FC = () => {
     } else {
         return (
             <div className='cart'>
-                <h1>Корзина</h1>
-                <h2>Нет товаров</h2>
+                <h1>В корзине нет товаров</h1>
             </div>
         )
     }    
