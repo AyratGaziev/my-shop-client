@@ -1,3 +1,13 @@
+.search{
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.search__form{
+    display: flex;
+    align-items: center;
+}
 .search__input{
     border: none;
     border-bottom: white 1px solid;
@@ -25,4 +35,13 @@
     font-size: 18px;
     font-family: 'Raleway', sans-serif;
     cursor: pointer;
+}
+
+.search__cart-link{
+    cursor: pointer;
+    margin-left: 30px;
+}
+.search__cart-link-img{
+    height: 40px;
+    width: 40px;
 }

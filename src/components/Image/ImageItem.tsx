@@ -3,10 +3,10 @@ import './ImageItem.css'
 
 type ImageItemType = {
     fullUrl: string,
-    placeholderWidth?: string
+    placeholderHeight: number
 }
 
-const ImageItem: React.FC<ImageItemType> = ({ fullUrl, placeholderWidth }) => {
+const ImageItem: React.FC<ImageItemType> = ({ fullUrl, placeholderHeight }) => {
 
   const [imgStatus, setImgStatus] = useState(false)
 
@@ -21,7 +21,8 @@ const ImageItem: React.FC<ImageItemType> = ({ fullUrl, placeholderWidth }) => {
     }, [fullUrl])
 
     const placeholderStyle = {
-        height: `${placeholderWidth}px`
+        height: `${placeholderHeight}px`
+        // maxHeight: `${placeholderWidth/1.1}px`        
     }
 
     const showImg = (

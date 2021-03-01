@@ -1,9 +1,12 @@
+.navigation{
+    margin-top: 15px;
+}
 .navigation__items{
     display: flex;
     list-style-type: none;
 }
 .navigation__item{
-    margin: 0 0 0 35px;
+    margin: 0 35px;
     font-weight: 700;
 }
 .active{

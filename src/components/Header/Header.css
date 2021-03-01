@@ -24,4 +24,5 @@
 .header__logo{
     display: block;
     max-width: 100px;
+    margin: 0 25px;
 }

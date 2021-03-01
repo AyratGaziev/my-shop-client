@@ -1,21 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, RouteComponentProps} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { getSomeProducts, setStart } from '../../redux/slices/productsSlice';
 import { RootState } from '../../redux/store/store';
 import { ProductsListType, ProductCategoryType } from '../../types';
 import Card from '../Card/Card';
 import Spinner from '../Spinner/Spinner';
-import './AllCards.css'
+import './Search.css'
 
-type AllCardsParamsType = { 
-    category: ProductCategoryType,
-    searchText?: string
+type AllCardsPropsType = { 
+    category: ProductCategoryType
 }
 
-const AllCards: React.FC<RouteComponentProps<AllCardsParamsType>> = ({ match }) => {
-    
-    const { category } = match.params
+const Search: React.FC<AllCardsPropsType> = ({category}) => {
 
     const products = useSelector((state: RootState): ProductsListType => state.products[category].products)
     const status = useSelector((state: RootState): string => state.products[category].loadingStatus)
@@ -26,15 +23,11 @@ const AllCards: React.FC<RouteComponentProps<AllCardsParamsType>> = ({ match }) 
     
     const limit = 4
 
-    useEffect(() => {
-        
-        if ((category !== 'search') && (products.length === 0 || (status !== 'done' && start === products.length))) {     
+    useEffect(() => {         
+        if (products.length === 0 || (status !== 'done'&& start === products.length)) {
             dispatch(getSomeProducts({limit, start, category})) 
-        } else if (match.params.searchText && (products.length === 0 || (status !== 'done' && start === products.length))) {
-            console.log('Work searchText AllCards');
-            dispatch(getSomeProducts({limit, start, category, searchText: match.params.searchText})) 
         }
-    }, [start, products.length, match.params.searchText])
+    }, [start, products.length])
 
     let cardList
 
@@ -43,7 +36,7 @@ const AllCards: React.FC<RouteComponentProps<AllCardsParamsType>> = ({ match }) 
             return (
                 <Link key={product._id}
                     className='card__link'
-                    to={`/productOverview/${product._id}`}>
+                    to={`/product/${product._id}/${category}`}>
                     <Card  product={product} />                
                 </Link>                
             )
@@ -68,4 +61,4 @@ const AllCards: React.FC<RouteComponentProps<AllCardsParamsType>> = ({ match }) 
     );
 }
 
-export default AllCards;
+export default Search;

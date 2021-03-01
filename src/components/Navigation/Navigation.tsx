@@ -21,7 +21,7 @@ const Navigation = () => {
                         id = 'all'
                         className = {linkClassName('all')} 
                         onClick = {select}
-                        to='/'>Все категории
+                        to='/products/allProducts'>Все категории
                     </Link>
                 </li>
                 <li className="navigation__item">
@@ -29,7 +29,7 @@ const Navigation = () => {
                         id = 'notebooks'
                         className = {linkClassName('notebooks')}
                         onClick = {select} 
-                        to='/notebooks'>Ноутбуки
+                        to='/products/notebooks'>Ноутбуки
                     </Link>
                 </li>
                 <li className="navigation__item">
@@ -37,7 +37,7 @@ const Navigation = () => {
                         id = 'phones'
                         className={linkClassName('phones')} 
                         onClick = {select} 
-                        to='/phones'>Смартфоны
+                        to='/products/phones'>Смартфоны
                     </Link>
                 </li>
                 <li className="navigation__item">
@@ -45,7 +45,7 @@ const Navigation = () => {
                         id = 'tvs'
                         className = {linkClassName('tvs')} 
                         onClick = {select}
-                        to='/tvs'>Телевизоры
+                        to='/products/tvs'>Телевизоры
                     </Link>
                 </li>
             </ul>
