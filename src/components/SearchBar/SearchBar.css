@@ -1,29 +1,30 @@
-.search{
+.search {
     margin: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.search__form{
+.search__form {
     display: flex;
     align-items: center;
 }
-.search__input{
+.search__input {
     border: none;
     border-bottom: white 1px solid;
     background-color: blueviolet;
+    border-bottom: rgb(118, 5, 224) 1px solid;
     width: 450px;
     height: 25px;
     font-size: 18px;
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
     color: #ffff;
 }
-.search__input:focus{
+.search__input:focus {
     border: none;
     outline: none;
-    border-bottom: rgb(118, 5, 224) 1px solid;
+    border-bottom: white 1px solid;
 }
-.search__btn{
+.search__btn {
     width: 100px;
     height: 35px;
     outline: none;
@@ -33,15 +34,15 @@
     color: rgb(255, 255, 255);
     background-color: rgb(71, 2, 136);
     font-size: 18px;
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
     cursor: pointer;
 }
 
-.search__cart-link{
+.search__cart-link {
     cursor: pointer;
     margin-left: 30px;
 }
-.search__cart-link-img{
+.search__cart-link-img {
     height: 40px;
     width: 40px;
 }

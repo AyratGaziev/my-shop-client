@@ -1,112 +1,107 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
-import { 
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import {
     CartCountUpdateType,
     CartItemType,
-    ProductCategoryType, 
-    ProductRequsetType,     
+    ProductCategoryType,
+    ProductRequsetType,
     ProductsState,
     ProdResonseType,
     ProductRequsetByIdType,
     ProductWithReviewsType,
     OneReviewRequsetType,
-    OneReviewResponseType} from '../../types'
-import url from '../../url'
-import { RootState } from '../store/store'
-
-
+    OneReviewResponseType
+} from "../../types";
+import url from "../../url";
 
 const initialState = {
     allProducts: {
-        loadingStatus: 'idle',
+        loadingStatus: "idle",
         products: [],
         start: 0
     },
     notebooks: {
-        loadingStatus: 'idle',
+        loadingStatus: "idle",
         products: [],
         start: 0
     },
     phones: {
-        loadingStatus: 'idle',
+        loadingStatus: "idle",
         products: [],
         start: 0
     },
     tvs: {
-        loadingStatus: 'idle',
+        loadingStatus: "idle",
         products: [],
         start: 0
     },
     search: {
-        loadingStatus: 'idle',
+        loadingStatus: "idle",
         products: [],
         start: 0
     },
     loading: false,
     productOverview: {
         product: {
-            _id: '',
-            category: '',
-            description: '',
+            _id: "",
+            category: "",
+            description: "",
             discount: 0,
             features: [
                 {
-                    _id: '',
-                    descrition: '',
-                    name: ''
+                    _id: "",
+                    descrition: "",
+                    name: ""
                 }
             ],
-            img: '',
-            name: '',
+            img: "",
+            name: "",
             price: 0
         },
         reviews: []
     },
     cart: []
-} as ProductsState
-    
+} as ProductsState;
 
 export const getSomeProducts = createAsyncThunk(
-    'products/GetSome',
+    "products/GetSome",
     async (params: ProductRequsetType) => {
-        
-        if (params.category === 'search' && params.searchText !== '') { 
-            const response = await axios.get(`${url}products/some/limit/${params.limit}/start/${params.start}/category/${params.category}/searchText/${params.searchText}`)            
-            return( response.data) as ProdResonseType            
+        if (params.category === "search" && params.searchText !== "") {
+            const response = await axios.get(
+                `${url}products/some/limit/${params.limit}/start/${params.start}/category/${params.category}/sort/${params.sort}/searchText/${params.searchText}`
+            );
+            return response.data as ProdResonseType;
         } else {
-            const response = await axios.get(`${url}products/some/limit/${params.limit}/start/${params.start}/category/${params.category}`)            
-            return( response.data) as ProdResonseType  
+            const response = await axios.get(
+                `${url}products/some/limit/${params.limit}/start/${params.start}/category/${params.category}/sort/${params.sort}`
+            );
+            return response.data as ProdResonseType;
         }
-        
     }
-)
+);
 
 export const getOneProductByID = createAsyncThunk(
-    'products/getOneProductByID',
-    async (params: ProductRequsetByIdType) => {        
-        const response = await axios.get(`${url}products/prodId/${params.id}`)            
-        return( response.data) as ProductWithReviewsType 
+    "products/getOneProductByID",
+    async (params: ProductRequsetByIdType) => {
+        const response = await axios.get(`${url}products/prodId/${params.id}`);
+        return response.data as ProductWithReviewsType;
     }
-)
+);
 
 export const addNewReview = createAsyncThunk(
-    'products/addNewReview',
+    "products/addNewReview",
     async (newReview: OneReviewRequsetType) => {
-        const {
-            advantages,
-            comments,
-            limitations,
-            name,
-            prodId } = newReview
+        const { advantages, comments, limitations, name, prodId } = newReview;
         const response = await axios.post(`${url}reviews/add`, {
             advantages,
             comments,
             limitations,
             name,
-            prodId })
-        return (response.data) as OneReviewResponseType
+            prodId
+        });
+        return response.data as OneReviewResponseType;
     }
-)
+);
 
 // export const getSearchProducts = createAsyncThunk(
 //     'products/Search',
@@ -120,87 +115,115 @@ const productsSlice = createSlice({
     name: "products",
     initialState,
     reducers: {
-        setStart: (state, action: PayloadAction<ProductCategoryType>) => {    
-            state[action.payload].start = state[action.payload].products.length
+        setStart: (state, action: PayloadAction<ProductCategoryType>) => {
+            state[action.payload].start = state[action.payload].products.length;
         },
-        addToCart: (state: ProductsState, action: PayloadAction<CartItemType>) => {
-            const itemOnCart = state.cart.findIndex(({ prodId }) => prodId === action.payload.prodId)
+        setNewStart: (state, action: PayloadAction<ProductCategoryType>) => {
+            state[action.payload].start = 0;
+            state[action.payload].products = [];
+        },
+        addToCart: (
+            state: ProductsState,
+            action: PayloadAction<CartItemType>
+        ) => {
+            const itemOnCart = state.cart.findIndex(
+                ({ prodId }) => prodId === action.payload.prodId
+            );
             if (itemOnCart === -1) {
-                state.cart.push(action.payload)
-            } else if(itemOnCart >= 0) {
-                state.cart[itemOnCart] = action.payload
+                state.cart.push(action.payload);
+            } else if (itemOnCart >= 0) {
+                state.cart[itemOnCart] = action.payload;
             }
         },
-        updateInCartCount: (state: ProductsState, action:    PayloadAction<CartCountUpdateType>) => {
-            const itemIdx = state.cart.findIndex(({ prodId }) => prodId === action.payload.id)
-            
-            
+        updateInCartCount: (
+            state: ProductsState,
+            action: PayloadAction<CartCountUpdateType>
+        ) => {
+            const itemIdx = state.cart.findIndex(
+                ({ prodId }) => prodId === action.payload.id
+            );
+
             if (itemIdx !== -1) {
-                state.cart[itemIdx].productCount = action.payload.count
+                state.cart[itemIdx].productCount = action.payload.count;
             }
         },
-        deleteFromCart: (state: ProductsState, action: PayloadAction<string>) => {
-            state.cart = state.cart.filter(item => item.prodId !== action.payload)
+        deleteFromCart: (
+            state: ProductsState,
+            action: PayloadAction<string>
+        ) => {
+            state.cart = state.cart.filter(
+                (item) => item.prodId !== action.payload
+            );
         },
         setNewSearch: (state: ProductsState) => {
-            state.search.start = 0
-            state.search.products = []
+            state.search.start = 0;
+            state.search.products = [];
         }
     },
-    extraReducers: builder => {
-
+    extraReducers: (builder) => {
         //GET some products, skip some limited response
         builder.addCase(getSomeProducts.pending, (state: ProductsState) => {
-            state.loading = true          
-        })
-        builder.addCase(getSomeProducts.fulfilled, (state: ProductsState, action: PayloadAction<ProdResonseType>) => {
-            if (action.payload.done) {
-                state[action.payload.category].loadingStatus = 'done'
-                state[action.payload.category].products = [...state[action.payload.category].products, ...action.payload.products] 
-                state.loading = false  
-            } else {
-                state[action.payload.category].loadingStatus = 'succeeded'
-                state[action.payload.category].products = [...state[action.payload.category].products, ...action.payload.products]
-                state.loading = false 
+            state.loading = true;
+        });
+        builder.addCase(
+            getSomeProducts.fulfilled,
+            (state: ProductsState, action: PayloadAction<ProdResonseType>) => {
+                if (action.payload.done) {
+                    state[action.payload.category].loadingStatus = "done";
+                    state[action.payload.category].products = [
+                        ...state[action.payload.category].products,
+                        ...action.payload.products
+                    ];
+                    state.loading = false;
+                } else {
+                    state[action.payload.category].loadingStatus = "succeeded";
+                    state[action.payload.category].products = [
+                        ...state[action.payload.category].products,
+                        ...action.payload.products
+                    ];
+                    state.loading = false;
+                }
             }
-        })
+        );
 
         //GET one product by ID
-        builder.addCase(
-            getOneProductByID.pending,
-            (state: ProductsState) => {
-                state.loading = true
-            }
-        )
+        builder.addCase(getOneProductByID.pending, (state: ProductsState) => {
+            state.loading = true;
+        });
         builder.addCase(
             getOneProductByID.fulfilled,
-            (state: ProductsState, action: PayloadAction<ProductWithReviewsType>) => {
-                state.productOverview = action.payload
-                state.loading = false
+            (
+                state: ProductsState,
+                action: PayloadAction<ProductWithReviewsType>
+            ) => {
+                state.productOverview = action.payload;
+                state.loading = false;
             }
-        )
+        );
         //POST Reviews
-        builder.addCase(
-            addNewReview.pending,
-            (state: ProductsState) => {
-                state.loading = true
-            }
-        )
+        builder.addCase(addNewReview.pending, (state: ProductsState) => {
+            state.loading = true;
+        });
         builder.addCase(
             addNewReview.fulfilled,
-            (state: ProductsState, action: PayloadAction<OneReviewResponseType>) => {
-                state.productOverview.reviews.push(action.payload)
-                state.loading = false
+            (
+                state: ProductsState,
+                action: PayloadAction<OneReviewResponseType>
+            ) => {
+                state.productOverview.reviews.push(action.payload);
+                state.loading = false;
             }
-        )
+        );
     }
-})
+});
 
 export const {
     setStart,
     addToCart,
     updateInCartCount,
     deleteFromCart,
-    setNewSearch} = productsSlice.actions
+    setNewSearch,
+    setNewStart
+} = productsSlice.actions;
 
-export default productsSlice.reducer
+export default productsSlice.reducer;
