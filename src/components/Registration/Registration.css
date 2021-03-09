@@ -1,0 +1,94 @@
+.registration {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid blueviolet;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 0 5px #0000;
+}
+.show {
+    opacity: 1;
+    z-index: 2;
+    visibility: visible;
+    transition: opacity 1s;
+}
+.registration__close {
+    position: absolute;
+    text-align: center;
+    right: -25px;
+    top: -25px;
+    color: blueviolet;
+    font-size: 35px;
+    line-height: 0.45;
+    border: 1px solid blueviolet;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #fff;
+}
+.registration__title {
+    text-align: center;
+}
+.registration__form {
+    width: 250px;
+}
+.registration__label {
+    display: block;
+    font-weight: 700;
+    margin-top: 25px;
+    color: blueviolet;
+}
+.registration__input {
+    display: block;
+    width: 200px;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid rgba(137, 43, 226, 0.267);
+    margin-bottom: 35px;
+    font-family: "Raleway", sans-serif;
+    font-size: 18px;
+}
+.registration__input:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid blueviolet;
+}
+.registration__submit {
+    width: 150px;
+    height: 35px;
+    font-family: "Raleway", sans-serif;
+    font-size: 14px;
+    border: 1px solid blueviolet;
+    border-radius: 3px;
+    background-color: #fff;
+    cursor: pointer;
+    color: blueviolet;
+}
+.registration__submit:hover {
+    background-color: blueviolet;
+    color: #fff;
+}
+.registration__background {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.384);
+    opacity: 0;
+    visibility: hidden;
+}
+.registration__background_show {
+    opacity: 1;
+    z-index: 1;
+    visibility: visible;
+    transition: opacity 1s;
+}

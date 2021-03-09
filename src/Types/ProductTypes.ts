@@ -80,6 +80,7 @@ export type ProductsState = {
     loading: boolean;
     cart: CartType;
     productOverview: ProductWithReviewsType;
+    message: string;
 };
 
 export type ProdResonseType = {
@@ -93,4 +94,7 @@ export type ProdSearchResonseType = {
 };
 export type ProductRequsetByIdType = {
     id: string;
+};
+export type ErrorPayloadType = {
+    message: string;
 };

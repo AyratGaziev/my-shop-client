@@ -10,14 +10,16 @@
     font-family: "Raleway", sans-serif;
     color: #000;
     font-size: 18px;
-    animation: show 500ms linear forwards;
+    animation: show 400ms linear forwards;
 }
 @keyframes show {
     from {
-        transform: scale(0);
+        /* transform: scale(0); */
+        opacity: 0;
     }
     to {
-        transform: scale(1);
+        /* transform: scale(1); */
+        opacity: 1;
     }
 }
 .card:hover {

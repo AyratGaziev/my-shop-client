@@ -1,0 +1,32 @@
+.popup {
+    padding: 15px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+    transform: translateY(-50%);
+    z-index: 1;
+    background-color: blueviolet;
+    color: #fff;
+    opacity: 0;
+    visibility: hidden;
+}
+.show {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1s;
+}
+.popup__close {
+    position: absolute;
+    text-align: center;
+    right: -25px;
+    top: -25px;
+    color: blueviolet;
+    font-size: 35px;
+    line-height: 0.45;
+    border: 1px solid blueviolet;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+}

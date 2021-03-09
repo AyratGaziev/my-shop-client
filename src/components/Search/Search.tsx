@@ -7,7 +7,10 @@ import {
     setStart
 } from "../../redux/slices/productsSlice";
 import { RootState } from "../../redux/store/store";
-import { ProductsListType, ProductCategoryType } from "../../types";
+import {
+    ProductsListType,
+    ProductCategoryType
+} from "../../Types/ProductTypes";
 import Card from "../Card/Card";
 import Spinner from "../Spinner/Spinner";
 import "./Search.css";
@@ -16,10 +19,7 @@ type AllCardsPropsType = {
     category: ProductCategoryType;
 };
 
-//ЭТОТ КОМПОНЕНТ РАБОТАЕТ???????????
-//ЭТОТ КОМПОНЕНТ РАБОТАЕТ???????????
-//ЭТОТ КОМПОНЕНТ РАБОТАЕТ???????????
-//ЭТОТ КОМПОНЕНТ РАБОТАЕТ???????????
+//ЭТОТ КОМПОНЕНТ НЕ РАБОТАЕТ!!!!!!!!!!!!!
 
 const Search: React.FC<AllCardsPropsType> = ({ category }) => {
     const products = useSelector(

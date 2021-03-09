@@ -10,8 +10,9 @@ import {
     ProductRequsetByIdType,
     ProductWithReviewsType,
     OneReviewRequsetType,
-    OneReviewResponseType
-} from "../../types";
+    OneReviewResponseType,
+    ErrorPayloadType
+} from "../../Types/ProductTypes";
 import url from "../../url";
 
 const initialState = {
@@ -60,7 +61,8 @@ const initialState = {
         },
         reviews: []
     },
-    cart: []
+    cart: [],
+    message: ""
 } as ProductsState;
 
 export const getSomeProducts = createAsyncThunk(
@@ -82,24 +84,49 @@ export const getSomeProducts = createAsyncThunk(
 
 export const getOneProductByID = createAsyncThunk(
     "products/getOneProductByID",
-    async (params: ProductRequsetByIdType) => {
-        const response = await axios.get(`${url}products/prodId/${params.id}`);
-        return response.data as ProductWithReviewsType;
+    async (params: ProductRequsetByIdType, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(
+                `${url}products/prodId/${params.id}`
+            );
+            return response.data as ProductWithReviewsType;
+        } catch (e) {
+            if (!e.response) {
+                throw e;
+            }
+            return rejectWithValue(e.response.data);
+        }
     }
 );
 
 export const addNewReview = createAsyncThunk(
     "products/addNewReview",
-    async (newReview: OneReviewRequsetType) => {
+    async (newReview: OneReviewRequsetType, { rejectWithValue }) => {
         const { advantages, comments, limitations, name, prodId } = newReview;
-        const response = await axios.post(`${url}reviews/add`, {
-            advantages,
-            comments,
-            limitations,
-            name,
-            prodId
-        });
-        return response.data as OneReviewResponseType;
+
+        try {
+            const response = await axios.post(
+                `${url}reviews/add`,
+                {
+                    advantages,
+                    comments,
+                    limitations,
+                    name,
+                    prodId
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                }
+            );
+            return response.data as OneReviewResponseType;
+        } catch (e) {
+            if (!e.response) {
+                throw e;
+            }
+            return rejectWithValue(e.response.data);
+        }
     }
 );
 
@@ -115,6 +142,9 @@ const productsSlice = createSlice({
     name: "products",
     initialState,
     reducers: {
+        clearProductMessage: (state) => {
+            state.message = "";
+        },
         setStart: (state, action: PayloadAction<ProductCategoryType>) => {
             state[action.payload].start = state[action.payload].products.length;
         },
@@ -200,6 +230,9 @@ const productsSlice = createSlice({
                 state.loading = false;
             }
         );
+        builder.addCase(getOneProductByID.rejected, (state: ProductsState) => {
+            state.loading = false;
+        });
         //POST Reviews
         builder.addCase(addNewReview.pending, (state: ProductsState) => {
             state.loading = true;
@@ -214,6 +247,12 @@ const productsSlice = createSlice({
                 state.loading = false;
             }
         );
+        builder.addCase(
+            addNewReview.rejected,
+            (state, action: PayloadAction<ErrorPayloadType> | any) => {
+                state.message = action.payload.message || action.payload;
+            }
+        );
     }
 });
 
@@ -223,7 +262,8 @@ export const {
     updateInCartCount,
     deleteFromCart,
     setNewSearch,
-    setNewStart
+    setNewStart,
+    clearProductMessage
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
