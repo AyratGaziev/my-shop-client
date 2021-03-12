@@ -4,7 +4,7 @@ export type UserStateType = {
     roles: string[];
     showLogin: boolean;
     showRegister: boolean;
-    loading: boolean;
+    userLoading: boolean;
     message: string;
 };
 export type regNewUserRequsetType = {

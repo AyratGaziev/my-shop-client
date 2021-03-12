@@ -19,3 +19,7 @@ export type PostOrderType = {
 export type GetOrderRequestType = {
     userId: string;
 };
+export type OrdersStateType = {
+    orders: GetOrderType;
+    ordersLoading: boolean;
+};

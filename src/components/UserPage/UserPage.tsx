@@ -11,13 +11,18 @@ const UserPage: React.FC = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getOrders({ userId: user.id }));
-    }, []);
+        if (user.id !== "") {
+            dispatch(getOrders({ userId: user.id }));
+        }
+    }, [user.id]);
 
-    const orders = useSelector((state: RootState) => state.orders);
+    const orders = useSelector((state: RootState) => state.orders.orders);
+    const ordersLoading = useSelector(
+        (state: RootState) => state.orders.ordersLoading
+    );
 
     const ordersTable =
-        orders.length > 0 ? (
+        orders.length > 0 && user.id !== "" && !ordersLoading ? (
             <table>
                 <thead>
                     <tr className="user__table-header-row">

@@ -15,6 +15,7 @@ import MessagePopUp from "./components/MessagePopUp/MessagePopUp";
 import Registration from "./components/Registration/Registration";
 import UserPage from "./components/UserPage/UserPage";
 import Order from "./components/Order/Order";
+import BarsSpinner from "./components/BarsSpinner/BarsSpinner";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                 <Header />
                 <MessagePopUp />
                 <Registration />
+                <BarsSpinner />
 
                 <div className="content">
                     <Switch>

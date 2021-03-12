@@ -3,27 +3,31 @@ import axios from "axios";
 import {
     GetOrderRequestType,
     GetOrderType,
+    OrdersStateType,
     PostOrderType
 } from "../../Types/OrdersTypes";
 
 import url from "../../url";
 
-const initialState = [
-    {
-        _id: "",
-        products: [
-            {
-                name: "",
-                price: 0,
-                prodId: "",
-                count: 0
-            }
-        ],
-        total: 0,
-        userId: "",
-        date: ""
-    }
-] as GetOrderType;
+const initialState = {
+    orders: [
+        {
+            _id: "",
+            products: [
+                {
+                    name: "",
+                    price: 0,
+                    prodId: "",
+                    count: 0
+                }
+            ],
+            total: 0,
+            userId: "",
+            date: ""
+        }
+    ],
+    ordersLoading: false
+} as OrdersStateType;
 
 export const payForOrder = createAsyncThunk(
     "orders/payForOrder",
@@ -82,27 +86,44 @@ const ordersSlice = createSlice({
     extraReducers: (builder) => {
         //Set Order
         builder.addCase(
+            payForOrder.pending,
+            (state: OrdersStateType, action) => {
+                state.ordersLoading = true;
+            }
+        );
+        builder.addCase(
             payForOrder.fulfilled,
-            (state: GetOrderType, action: PayloadAction<GetOrderType>) => {
+            (state: OrdersStateType, action: PayloadAction<GetOrderType>) => {
+                state.orders = action.payload;
+                state.ordersLoading = false;
+            }
+        );
+        builder.addCase(
+            payForOrder.rejected,
+            (state: OrdersStateType, action) => {
                 console.log(action.payload);
-
-                return action.payload;
+                state.ordersLoading = false;
             }
         );
         //GetOrders
+        builder.addCase(getOrders.pending, (state: OrdersStateType, action) => {
+            state.ordersLoading = true;
+        });
         builder.addCase(
             getOrders.fulfilled,
-            (state: GetOrderType, action: PayloadAction<GetOrderType>) => {
-                return action.payload;
+            (state: OrdersStateType, action: PayloadAction<GetOrderType>) => {
+                state.orders = action.payload;
+                state.ordersLoading = false;
+            }
+        );
+        builder.addCase(
+            getOrders.rejected,
+            (state: OrdersStateType, action) => {
+                console.log(action.payload);
+                state.ordersLoading = false;
             }
         );
     }
 });
-
-// export const {
-//     setShowLogin,
-//     setShowRegister,
-//     clearUserMessage
-// } = userSlice.actions;
 
 export default ordersSlice.reducer;

@@ -10,6 +10,7 @@ import { addToCart, getOneProductByID } from "../../redux/slices/productsSlice";
 import Spinner from "../Spinner/Spinner";
 import Reviews from "../Reviews/Reviews";
 import AddReviews from "../AddReviews/AddReviews";
+import BarsSpinner from "../BarsSpinner/BarsSpinner";
 
 type PordParamsType = { id: string };
 
@@ -45,7 +46,6 @@ const ProductOverview: React.FC<RouteComponentProps<PordParamsType>> = ({
             (productCount = productCount === 1 ? 1 : productCount - 1)
         );
 
-    // const product = products.find(prod => prod._id === id)
     const product = useSelector(
         (state: RootState) => state.products.productOverview.product
     );

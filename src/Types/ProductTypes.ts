@@ -34,6 +34,7 @@ export type OneReviewRequsetType = {
 export type ProductWithReviewsType = {
     product: ProductDataType;
     reviews: ProductReviewsType;
+    reviewsLoading: boolean;
 };
 export type ProductsListType = ProductDataType[];
 export type SomeProductsType = {

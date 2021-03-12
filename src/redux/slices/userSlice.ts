@@ -16,7 +16,7 @@ const initialState = {
     showLogin: false,
     showRegister: false,
     username: "",
-    loading: false,
+    userLoading: false,
     message: ""
 } as UserStateType;
 
@@ -101,7 +101,7 @@ const userSlice = createSlice({
     extraReducers: (builder) => {
         //Registration new User
         builder.addCase(regNewUser.pending, (state, action) => {
-            state.loading = true;
+            state.userLoading = true;
         });
         builder.addCase(
             regNewUser.fulfilled,
@@ -110,16 +110,17 @@ const userSlice = createSlice({
                 action: PayloadAction<regNewUserResponseType>
             ) => {
                 state.message = action.payload.message;
-                state.loading = false;
+                state.userLoading = false;
             }
         );
         builder.addCase(regNewUser.rejected, (state: UserStateType, action) => {
             console.log(action.payload);
+            state.userLoading = false;
         });
 
         //Login User
         builder.addCase(loginUser.pending, (state, action) => {
-            state.loading = true;
+            state.userLoading = true;
         });
         builder.addCase(
             loginUser.fulfilled,
@@ -130,17 +131,18 @@ const userSlice = createSlice({
                 state.id = action.payload.id;
                 state.username = action.payload.name;
                 state.roles = action.payload.role;
-                state.loading = false;
+                state.userLoading = false;
                 localStorage.setItem("token", action.payload.token);
                 localStorage.setItem("id", action.payload.id);
             }
         );
         builder.addCase(loginUser.rejected, (state: UserStateType, action) => {
             console.log(action.payload);
+            state.userLoading = false;
         });
         //CheckAuth
         builder.addCase(authCheck.pending, (state: UserStateType, action) => {
-            state.loading = true;
+            state.userLoading = true;
         });
         builder.addCase(
             authCheck.fulfilled,
@@ -151,11 +153,11 @@ const userSlice = createSlice({
                 state.id = action.payload.id;
                 state.username = action.payload.name;
                 state.roles = action.payload.role;
-                state.loading = false;
+                state.userLoading = false;
             }
         );
         builder.addCase(authCheck.rejected, (state: UserStateType, action) => {
-            state.loading = false;
+            state.userLoading = false;
             console.log(action.payload);
         });
     }

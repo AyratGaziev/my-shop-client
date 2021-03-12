@@ -60,6 +60,11 @@ const Registration: React.FC = () => {
             try {
                 let resultAction;
                 if (showRegister) {
+                    dispatch(setShowRegister());
+                } else {
+                    dispatch(setShowLogin());
+                }
+                if (showRegister) {
                     resultAction = await dispatch(
                         regNewUser({ username, password })
                     );
@@ -71,11 +76,6 @@ const Registration: React.FC = () => {
                 unwrapResult(resultAction);
                 setPassword("");
                 setUsername("");
-                if (showRegister) {
-                    dispatch(setShowRegister());
-                } else {
-                    dispatch(setShowLogin());
-                }
             } catch (err) {
                 console.error("Не удалось зарегистрироваться ", err);
             }

@@ -10,10 +10,10 @@ type OrderParamsType = {
 
 const Order: React.FC<RouteComponentProps<OrderParamsType>> = ({ match }) => {
     const { id } = match.params;
-    const allOrders = useSelector((state: RootState) => state.orders);
+    const allOrders = useSelector((state: RootState) => state.orders.orders);
 
     const selectedOrder =
-        allOrders.length > 0
+        allOrders.length > 0 && allOrders[0]._id !== ""
             ? allOrders.find((order) => order._id === id)
             : null;
 

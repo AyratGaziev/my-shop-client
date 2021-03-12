@@ -59,7 +59,8 @@ const initialState = {
             name: "",
             price: 0
         },
-        reviews: []
+        reviews: [],
+        reviewsLoading: false
     },
     cart: [],
     message: ""
@@ -129,14 +130,6 @@ export const addNewReview = createAsyncThunk(
         }
     }
 );
-
-// export const getSearchProducts = createAsyncThunk(
-//     'products/Search',
-//     async (params: ProdSearchRequestType) => {
-//         const response = await axios.get(`${url}products/serach/limit/${params.limit}/start/${params.start}/searchText/${params.searchText}`)
-//         return (response.data) as ProdSearchResonseType
-//     }
-// )
 
 const productsSlice = createSlice({
     name: "products",
@@ -238,7 +231,7 @@ const productsSlice = createSlice({
         });
         //POST Reviews
         builder.addCase(addNewReview.pending, (state: ProductsState) => {
-            state.loading = true;
+            state.productOverview.reviewsLoading = true;
         });
         builder.addCase(
             addNewReview.fulfilled,
@@ -247,12 +240,13 @@ const productsSlice = createSlice({
                 action: PayloadAction<OneReviewResponseType>
             ) => {
                 state.productOverview.reviews.push(action.payload);
-                state.loading = false;
+                state.productOverview.reviewsLoading = false;
             }
         );
         builder.addCase(
             addNewReview.rejected,
             (state, action: PayloadAction<ErrorPayloadType> | any) => {
+                state.productOverview.reviewsLoading = false;
                 state.message = action.payload.message || action.payload;
             }
         );
