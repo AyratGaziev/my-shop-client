@@ -83,7 +83,7 @@ const AllCards: React.FC<RouteComponentProps<AllCardsParamsType>> = ({
                 </Link>
             );
         });
-    } else {
+    } else if (loading === false) {
         cardList = <h2>Ничего не найдено</h2>;
     }
 

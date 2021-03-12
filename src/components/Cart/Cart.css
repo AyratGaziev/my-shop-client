@@ -1,16 +1,15 @@
-
-.cart__list-item{
+.cart__list-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 15px 0;
 }
-.cart__img{
+.cart__img {
     width: 200px;
 }
-.cart__list-name{
+.cart__list-name {
     display: block;
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
     text-decoration: none;
     color: #000;
     text-align: left;
@@ -19,56 +18,61 @@
     font-weight: 700;
     margin: 0 10px;
 }
-.cart__list-name:hover{
+.cart__list-name:hover {
     color: blueviolet;
 }
-.cart__list-price{
-    width:100px;
+.cart__list-price {
+    width: 100px;
     font-size: 18px;
     font-weight: 700;
     color: blueviolet;
-    margin: 0 15px; 
+    margin: 0 15px;
 }
-.cart__counter{
+.cart__counter {
     display: flex;
     align-items: center;
     width: 200px;
 }
-.cart__counter-decr, .cart__counter-incr{
+.cart__counter-decr,
+.cart__counter-incr,
+.cart__pay-btn {
     border: blueviolet 1px solid;
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
     background-color: #fff;
     width: 30px;
     height: 30px;
-    font-size:26px;
+    font-size: 26px;
     line-height: 1;
     color: blueviolet;
     border-radius: 3px;
     cursor: pointer;
     margin: 0 5px;
 }
-.cart__counter-decr:hover, .cart__counter-incr:hover{
+.cart__counter-decr:hover,
+.cart__counter-incr:hover,
+.cart__pay-btn:hover {
     background-color: blueviolet;
-    color: #fff
+    color: #fff;
 }
-.cart__counter-input{
+.cart__counter-input {
     width: 30px;
     height: 30px;
     border: blueviolet 1px solid;
     color: blueviolet;
     border-radius: 3px;
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
     font-size: 22px;
     line-height: 1.5;
     text-align: center;
 }
-.cart__counter-decr:focus, 
+.cart__counter-decr:focus,
 .cart__counter-incr:focus,
-.cart__counter-input:focus {
+.cart__counter-input:focus,
+.cart__pay-btn:focus {
     outline: none;
     box-shadow: 0px 0px 0px 2px rgba(137, 43, 226, 0.384);
 }
-.cart__total{
+.cart__total {
     border-top: blueviolet 1px solid;
     padding: 5px 10px;
     display: flex;
@@ -76,10 +80,10 @@
     font-size: 24px;
     font-weight: 700;
 }
-.cart__total-price{
+.cart__total-price {
     color: blueviolet;
 }
-.cart__delete{
+.cart__delete {
     border: none;
     background-color: transparent;
     background-image: url(./trash.svg);
@@ -89,6 +93,23 @@
     cursor: pointer;
     margin-left: 35px;
 }
-.cart__delete:focus{
+.cart__delete:focus {
     outline: none;
+}
+.cart__empty {
+    display: block;
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    margin-top: 30px;
+}
+.cart__pay-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 700;
 }

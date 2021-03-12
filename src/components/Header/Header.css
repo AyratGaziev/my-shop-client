@@ -1,28 +1,28 @@
-.header{
+.header {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 100px;
-    background-color: blueviolet;    
+    background-color: blueviolet;
 }
-.container{
+.container {
     max-width: 1250px;
     margin: 0 auto;
 }
-.header__content{
+.header__content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
 }
-.header__wrap{
-    display: flex; 
+.header__wrap {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
-.header__logo{
+.header__logo {
     display: block;
-    max-width: 100px;
-    margin: 0 25px;
+    width: 55px;
+    height: 55px;
 }

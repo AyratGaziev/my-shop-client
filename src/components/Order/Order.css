@@ -1,0 +1,48 @@
+.order {
+}
+.order__title {
+    margin-bottom: 35px;
+}
+.order__list-item:first-child {
+    border-top: 1px solid violet;
+}
+.order__list-item {
+    display: flex;
+    justify-content: space-between;
+    width: 750px;
+    padding: 35px 0;
+    border-bottom: 1px solid violet;
+}
+.order__list-item:hover {
+    background-color: rgba(238, 130, 238, 0.158);
+}
+.order__list-name {
+    width: 500px;
+    text-align: left;
+    text-decoration: none;
+    font-weight: 700;
+    color: #000;
+    padding-left: 10px;
+}
+.order__list-name:hover {
+    color: blueviolet;
+    font-weight: 700;
+}
+.order__list-count {
+    text-align: left;
+    max-width: 100px;
+}
+.order__list-price {
+    text-align: left;
+    max-width: 150px;
+    font-weight: 700;
+    padding-right: 10px;
+}
+.order__total {
+    text-align: right;
+    margin-top: 15px;
+    font-weight: 700;
+    font-size: 18px;
+    color: blueviolet;
+    padding-right: 10px;
+}

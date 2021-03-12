@@ -37,7 +37,7 @@ const Reviews: React.FC<ReviewsPropsType> = ({ reviews }) => {
             <h2 className="review__title">
                 {reviews.length === 0 ? "Пока нет отзывов" : "Отзывы"}
             </h2>
-            {showReviews}
+            {showReviews !== null ? showReviews.reverse() : null}
         </div>
     );
 };

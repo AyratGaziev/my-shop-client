@@ -59,20 +59,24 @@ const Navigation = () => {
 
     const userBtn = (
         <li className="navigation__item">
-            <button className="registration-link">{user.username}</button>
+            <Link to="/user-page">
+                <button className="registration-link">{user.username}</button>
+            </Link>
         </li>
     );
 
     const logOutBtn = (
         <li className="navigation__item">
-            <Exit
-                onClick={() => {
-                    localStorage.setItem("token", "");
-                    localStorage.setItem("id", "");
-                    dispatch(userLogout());
-                }}
-                className="navigation__exit"
-            />
+            <Link to="/">
+                <Exit
+                    onClick={() => {
+                        localStorage.setItem("token", "");
+                        localStorage.setItem("id", "");
+                        dispatch(userLogout());
+                    }}
+                    className="navigation__exit"
+                />
+            </Link>
         </li>
     );
 

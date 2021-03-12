@@ -1,7 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { payForOrder } from "../../redux/slices/ordrersSlice";
 import {
+    clearCart,
     deleteFromCart,
     updateInCartCount
 } from "../../redux/slices/productsSlice";
@@ -9,6 +11,7 @@ import { RootState } from "../../redux/store/store";
 import url from "../../url";
 import ImageItem from "../Image/ImageItem";
 import "./Cart.css";
+import { ReactComponent as EmptyCart } from "./empty-cart.svg";
 
 const Cart: React.FC = () => {
     const cartItems = useSelector((state: RootState) => state.products.cart);
@@ -28,12 +31,22 @@ const Cart: React.FC = () => {
         dispatch(updateInCartCount({ count: newCount, id }));
     };
 
-    const totalSum = cartItems
-        .map((item) => item.price * item.productCount)
-        .reduce((acc, item) => acc + item);
+    const totalSum =
+        cartItems.length > 0
+            ? cartItems
+                  .map((item) => item.price * item.productCount)
+                  .reduce((acc, item) => acc + item)
+            : null;
 
     let cartList;
-    console.log(totalSum);
+
+    const products =
+        cartItems.length > 0
+            ? cartItems.map((item) => {
+                  const { name, prodId, price, productCount } = item;
+                  return { name, prodId, price, count: productCount };
+              })
+            : null;
 
     if (cartItems.length > 0) {
         cartList = cartItems.map((item) => {
@@ -108,12 +121,30 @@ const Cart: React.FC = () => {
                     <div className="cart__total-text">Итого к оплате:</div>
                     <div className="cart__total-price">{totalSum} ₽</div>
                 </div>
+                <Link
+                    onClick={() => {
+                        if (totalSum !== null && products !== null) {
+                            dispatch(
+                                payForOrder({
+                                    userId,
+                                    total: totalSum,
+                                    products
+                                })
+                            );
+                            dispatch(clearCart());
+                        }
+                    }}
+                    to="/"
+                    className="cart__pay-btn">
+                    Оплатить
+                </Link>
             </div>
         );
     } else {
         return (
             <div className="cart">
                 <h1>В корзине нет товаров</h1>
+                <EmptyCart className="cart__empty" />
             </div>
         );
     }

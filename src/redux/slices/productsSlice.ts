@@ -145,6 +145,9 @@ const productsSlice = createSlice({
         clearProductMessage: (state) => {
             state.message = "";
         },
+        clearCart: (state) => {
+            state.cart = [];
+        },
         setStart: (state, action: PayloadAction<ProductCategoryType>) => {
             state[action.payload].start = state[action.payload].products.length;
         },
@@ -263,7 +266,8 @@ export const {
     deleteFromCart,
     setNewSearch,
     setNewStart,
-    clearProductMessage
+    clearProductMessage,
+    clearCart
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

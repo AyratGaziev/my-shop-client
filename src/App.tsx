@@ -13,6 +13,8 @@ import ProductOverview from "./components/ProductOverview/ProductOverview";
 import Cart from "./components/Cart/Cart";
 import MessagePopUp from "./components/MessagePopUp/MessagePopUp";
 import Registration from "./components/Registration/Registration";
+import UserPage from "./components/UserPage/UserPage";
+import Order from "./components/Order/Order";
 
 function App() {
     return (
@@ -42,7 +44,8 @@ function App() {
                             path={`/productOverview/:id`}
                             component={ProductOverview}
                         />
-                        <Route />
+                        <Route path={`/order/:id`} component={Order} />
+                        <Route path={`/user-page`} component={UserPage} />
                     </Switch>
                 </div>
             </Router>
