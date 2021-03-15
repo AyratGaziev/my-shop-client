@@ -1,5 +1,6 @@
 .header {
-    position: absolute;
+    position: fixed;
+    z-index: 2;
     top: 0;
     left: 0;
     right: 0;
@@ -25,4 +26,30 @@
     display: block;
     width: 55px;
     height: 55px;
+}
+.header__logo-mobile {
+    display: none;
+}
+@media (max-width: 760px) {
+    .header__logo {
+        display: none;
+    }
+    .header__content {
+        flex-direction: column;
+    }
+    .header__logo-mobile {
+        display: block;
+        font-size: 22px;
+        font-weight: 700;
+        color: #fff;
+        margin-top: 3px;
+    }
+    .header__logo-link {
+        text-decoration: none;
+    }
+}
+@media (max-width: 715px) {
+    .header {
+        height: 85px;
+    }
 }

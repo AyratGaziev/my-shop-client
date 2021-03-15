@@ -14,7 +14,7 @@ const UserPage: React.FC = () => {
         if (user.id !== "") {
             dispatch(getOrders({ userId: user.id }));
         }
-    }, [user.id]);
+    }, [dispatch, user.id]);
 
     const orders = useSelector((state: RootState) => state.orders.orders);
     const ordersLoading = useSelector(

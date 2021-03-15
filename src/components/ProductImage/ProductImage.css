@@ -1,9 +1,9 @@
-.image {
+.product__image {
     max-width: 650px;
     display: block;
     margin: 0 auto;
 }
-.placeholder {
+.product__placeholder {
     max-width: 650px;
     height: 250px;
     animation-duration: 1.7s;
@@ -21,5 +21,23 @@
     }
     100% {
         background-position: 650px 0;
+    }
+}
+@media (max-width: 660px) {
+    .product__image {
+        width: 450px;
+        height: auto !important;
+    }
+}
+@media (max-width: 460px) {
+    .product__image {
+        width: 300px;
+        height: auto !important;
+    }
+}
+@media (max-width: 360px) {
+    .product__image {
+        width: 250px;
+        height: auto !important;
     }
 }

@@ -10,8 +10,9 @@ const Header: React.FC = () => {
         <header className="header">
             <div className="container">
                 <div className="header__wrap">
-                    <Link to="/">
+                    <Link className="header__logo-link" to="/">
                         <Shop className="header__logo" />
+                        <span className="header__logo-mobile">MyShop</span>
                     </Link>
                     <div className="header__content">
                         <Navigation />

@@ -79,3 +79,16 @@
 .cards__sort-input:focus + label::before {
     box-shadow: 0 0 0 3px rgba(137, 43, 226, 0.342);
 }
+@media (max-width: 536px) {
+    .cards__wrapper {
+        justify-content: center;
+    }
+}
+@media (max-width: 450px) {
+    .cards__sort h2 {
+        font-size: 18px;
+    }
+    .cards__sort-label {
+        font-size: 12px;
+    }
+}

@@ -29,7 +29,9 @@ const Order: React.FC<RouteComponentProps<OrderParamsType>> = ({ match }) => {
                       <div className="order__list-count">
                           {product.count} шт.
                       </div>
-                      <div className="order__list-price">{product.price} ₽</div>
+                      <div className="order__list-price">
+                          {product.price}&nbsp;₽
+                      </div>
                   </div>
               );
           })
@@ -39,7 +41,9 @@ const Order: React.FC<RouteComponentProps<OrderParamsType>> = ({ match }) => {
         <div className="order">
             <h2 className="order__title">Заказ #{id}</h2>
             <div className="order__list">{orderList}</div>
-            <div className="order__total">Итого: {selectedOrder?.total} ₽</div>
+            <div className="order__total">
+                Итого: {selectedOrder?.total}&nbsp;₽
+            </div>
         </div>
     );
 };

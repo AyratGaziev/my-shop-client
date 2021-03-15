@@ -92,3 +92,8 @@
     visibility: visible;
     transition: opacity 1s;
 }
+@media (max-width: 350px) {
+    .registration__form {
+        width: 225px;
+    }
+}

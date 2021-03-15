@@ -23,9 +23,6 @@ const Registration: React.FC = () => {
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        /**
-         * Dispatch if clicked on outside of element
-         */
         function handleClickOutside(
             event: MouseEvent<HTMLElement> | any
         ): void {
@@ -41,10 +38,8 @@ const Registration: React.FC = () => {
                 }
             }
         }
-        // Bind the event listener
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
-            // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [wrapperRef, showLogin, showRegister]);

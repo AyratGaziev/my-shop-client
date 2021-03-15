@@ -1,43 +1,41 @@
-import React, {useState} from 'react';
-import './SearchBar.css'
-import {ReactComponent as CartImg} from './cart.svg'
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom';
-import { setNewSearch } from '../../redux/slices/productsSlice';
+import React, { useState } from "react";
+import "./SearchBar.css";
+import { ReactComponent as CartImg } from "./cart.svg";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { setNewSearch } from "../../redux/slices/productsSlice";
 
 const SearchBar: React.FC = () => {
+    const [searchValue, setSearchValue] = useState("");
 
-    const[searchValue, setSearchValue] = useState('')
-    
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     return (
-        <div className = "search">
-            <form
-                className="search__form">
+        <div className="search">
+            <form className="search__form">
                 <input
-                    onChange={(e)=> setSearchValue(e.target.value)}
+                    onChange={(e) => setSearchValue(e.target.value)}
                     className="search__input"
-                    value={searchValue} />
+                    value={searchValue}
+                />
                 <Link
                     onClick={() => {
-                        setSearchValue('')
-                        dispatch(setNewSearch())
+                        setSearchValue("");
+                        dispatch(setNewSearch());
                     }}
                     to={`/search/search/${searchValue}`}>
                     <input
-                        type = 'submit'
+                        type="submit"
                         className="search__btn"
-                        value = 'Поиск'/>  
+                        value="Поиск"
+                    />
                 </Link>
-                              
             </form>
-            <Link className = 'search__cart-link' to ='/cart'>
-                {/* <img className='search__cart-link-img' src={Cart} alt="cart" /> */}
-                <CartImg className='search__cart-link-img' />
+            <Link className="search__cart-link" to="/cart">
+                <CartImg className="search__cart-link-img" />
             </Link>
         </div>
     );
-}
+};
 
 export default SearchBar;

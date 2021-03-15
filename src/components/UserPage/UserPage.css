@@ -3,7 +3,8 @@
     justify-content: space-between;
 }
 .user__info {
-    width: 350px;
+    max-width: 350px;
+    margin: 0 15px;
 }
 .user__name {
     margin-bottom: 15px;
@@ -61,4 +62,68 @@ td {
 .user__table-order-link:hover {
     color: blueviolet;
     font-weight: 700;
+}
+@media (max-width: 1200px) {
+    th,
+    td {
+        font-size: 14px;
+    }
+}
+@media (max-width: 1200px) {
+    th,
+    td {
+        padding: 10px 10px;
+    }
+}
+@media (max-width: 1000px) {
+    .user__orders {
+        width: 400px;
+        margin-bottom: 15px;
+    }
+}
+@media (max-width: 800px) {
+    .user {
+        flex-direction: column;
+    }
+    .user__orders {
+        margin-top: 15px;
+    }
+    /* .user__name {
+        font-size: 18px;
+    }
+    .user__id {
+        font-size: 14px;
+    }
+    .user__orders-header {
+        font-size: 18px;
+    } */
+}
+@media (max-width: 435px) {
+    th,
+    td {
+        padding: 10px 5px;
+        font-size: 12px;
+    }
+    .user__orders {
+        width: 350px;
+    }
+}
+@media (max-width: 360px) {
+    .user__name {
+        font-size: 18px;
+    }
+    .user__id {
+        font-size: 14px;
+    }
+    .user__orders-header {
+        font-size: 18px;
+    }
+    th,
+    td {
+        padding: 5px 2px;
+        font-size: 11px;
+    }
+    .user__orders {
+        width: 315px;
+    }
 }

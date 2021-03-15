@@ -1,14 +1,20 @@
-.price{
+.price {
     margin: 15px 0;
     height: 50px;
 }
-.price__old-price{
+.price__old-price {
     text-decoration: line-through;
-    color: #6C757D;
+    color: #6c757d;
     font-size: 18px;
 }
-.price__discount-price, .price__standard-price{
+.price__discount-price,
+.price__standard-price {
     font-weight: 700;
     font-size: 24px;
     color: blueviolet;
-} 
+}
+@media (max-width: 460px) {
+    .price {
+        margin: 5px 0;
+    }
+}

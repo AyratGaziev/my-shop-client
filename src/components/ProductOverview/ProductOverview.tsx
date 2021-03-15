@@ -3,14 +3,13 @@ import "./ProductOverview.css";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store/store";
-import ImageItem from "../Image/ImageItem";
+import ProductImage from "../ProductImage/ProductImage";
 import url from "../../url";
 import Price from "../Price/Price";
 import { addToCart, getOneProductByID } from "../../redux/slices/productsSlice";
 import Spinner from "../Spinner/Spinner";
 import Reviews from "../Reviews/Reviews";
 import AddReviews from "../AddReviews/AddReviews";
-import BarsSpinner from "../BarsSpinner/BarsSpinner";
 
 type PordParamsType = { id: string };
 
@@ -27,7 +26,6 @@ const ProductOverview: React.FC<RouteComponentProps<PordParamsType>> = ({
         }
     }, [id]);
 
-    // const products = useSelector((state: RootState) => state.products[category].products)
     const inCart = useSelector((state: RootState) => state.products.cart);
     const loading = useSelector(
         (state: RootState): boolean => state.products.loading
@@ -97,7 +95,7 @@ const ProductOverview: React.FC<RouteComponentProps<PordParamsType>> = ({
         return (
             <div className="product">
                 <div className="product__wrapper">
-                    <ImageItem
+                    <ProductImage
                         fullUrl={`${url}${img}`}
                         placeholderHeight={400}
                     />

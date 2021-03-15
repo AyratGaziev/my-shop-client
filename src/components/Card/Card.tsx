@@ -1,7 +1,7 @@
 import React from "react";
 import "./Card.css";
 import url from "../../url";
-import ImageItem from "../Image/ImageItem";
+import CardImage from "../CardImage/CardImage";
 import { ProductDataType } from "../../Types/ProductTypes";
 import Price from "../Price/Price";
 
@@ -19,7 +19,7 @@ const Card: React.FC<CardPropsType> = ({ product }) => {
 
     return (
         <div className="card">
-            <ImageItem
+            <CardImage
                 fullUrl={`${url}${product.img}`}
                 placeholderHeight={150}
             />
