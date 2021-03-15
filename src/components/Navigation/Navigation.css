@@ -31,6 +31,10 @@ a:hover {
     outline: none;
     border: none;
     cursor: pointer;
+    font-weight: 700;
+}
+.registration-link:hover {
+    color: #ffffff;
 }
 
 .navigation__exit {
@@ -125,7 +129,7 @@ a:hover {
     text-decoration: none;
 }
 .navigation__exit-burger:hover {
-    color: blueviolet;
+    color: rgb(40, 4, 75);
 }
 @media (max-width: 1060px) {
     .navigation__item {
